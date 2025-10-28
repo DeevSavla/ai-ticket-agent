@@ -1,5 +1,5 @@
-import { inngest } from "../inngest/client";
-import { ticketModel } from "../models/ticket.model";
+import { inngest } from "../inngest/client.js";
+import { ticketModel } from "../models/ticket.model.js";
 
 export const createTicket = async (req, res) => {
   try {
