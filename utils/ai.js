@@ -7,6 +7,7 @@ const analyzeTicket = async (ticket) => {
       apiKey: process.env.GEMINI_API_KEY,
     }),
     name: "AI Ticket Assistant",
+    //system prompt for the LLM 
     system: `You are an expert AI assistant that processes technical support tickets. 
 
     Your job is to:
@@ -49,14 +50,19 @@ const analyzeTicket = async (ticket) => {
     - Title: ${ticket.title}
     - Description: ${ticket.description}`);
 
+  console.log('Response of the agent:',response)
+
   const raw = response.output[0].context;
 
   try {
+    //regexr website to verify.
+    //i - flag for case sensitivity
     const match = raw.match(/```json\s*([\s\S]*?)\s*```/i);
     const jsonString = match ? match[1] : raw.trim();
     return JSON.parse(jsonString);
   } catch (e) {
     console.log("Failed to parse JSON from AI response" + e.message);
+    //helps to handle function failure easily.
     return null;
   }
 };

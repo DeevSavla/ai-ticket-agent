@@ -2,7 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { configDotenv } from "dotenv";
-import userRoutes from "./routes/user.route";
+import userRoutes from "./routes/user.route.js";
+import ticketRoutes from "./routes/ticket.route.js";
+import { serve } from "inngest/express";
+import { inngest } from "./inngest/client.js";
+import { onUserSignUp } from "./inngest/functions/on-signup.js";
+import { onTicketCreated } from "./inngest/functions/on-create.ticket.js";
 
 configDotenv();
 
@@ -15,6 +20,15 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.use("/api/auth", userRoutes);
+app.use("/api/tickets", ticketRoutes);
+
+app.use(
+  "/api/inngest",
+  serve({
+    client: inngest,
+    functions: [onUserSignUp, onTicketCreated],
+  })
+);
 
 mongoose
   .connect(process.env.MONGODB_URL)
