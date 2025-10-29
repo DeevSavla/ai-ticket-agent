@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CheckAuth from './components/check-auth.jsx'
+import Navbar from './components/navbar.jsx'
 import TicketsPage from './pages/tickets.jsx'
 import TicketPage from './pages/ticket.jsx'
 import AdminPanel from './pages/admin.jsx'
@@ -12,11 +13,12 @@ import LoginPage from "./pages/login.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route 
           path='/'
           element={
-            <CheckAuth protected={true}>
+            <CheckAuth protectedRoute={true}>
               <TicketsPage/>
             </CheckAuth>
           }
@@ -25,7 +27,7 @@ createRoot(document.getElementById("root")).render(
         <Route 
           path='/tickets/:id'
           element={
-            <CheckAuth protected={true}>
+            <CheckAuth protectedRoute={true}>
               <TicketPage/>
             </CheckAuth>
           }
@@ -34,7 +36,7 @@ createRoot(document.getElementById("root")).render(
         <Route 
           path='/login'
           element={
-            <CheckAuth protected={false}>
+            <CheckAuth protectedRoute={false}>
               <LoginPage/>
             </CheckAuth>
           }
@@ -43,7 +45,7 @@ createRoot(document.getElementById("root")).render(
         <Route 
           path='/signup'
           element={
-            <CheckAuth protected={false}>
+            <CheckAuth protectedRoute={false}>
               <SignupPage/>
             </CheckAuth>
           }
@@ -52,7 +54,7 @@ createRoot(document.getElementById("root")).render(
         <Route 
           path='/admin'
           element={
-            <CheckAuth protected={true}>
+            <CheckAuth protectedRoute={true}>
               <AdminPanel/>
             </CheckAuth>
           }

@@ -38,7 +38,7 @@ export const getTickets = async (req, res) => {
     const user = req.user;
     let tickets = [];
     if (user.role !== "user") {
-      tickets = ticketModel
+      tickets = await ticketModel
         .find({})
         //this will find the user to which the ticket is assigned & provides both email and _id of that user shown below
         /*{
@@ -78,11 +78,10 @@ export const getTicket = async (req, res) => {
         })
         .select("title description status createdAt");
     }
-
     if (!ticket) {
       return res.status(404).json({ message: "Ticket not found" });
     }
-    return res.status(404).json({ ticket });
+    return res.status(201).json({ ticket });
   } catch (error) {
     console.error("Error fetching ticket", error.message);
     return res.status(500).json({ message: "Internal Server Error" });

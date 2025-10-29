@@ -52,7 +52,7 @@ const analyzeTicket = async (ticket) => {
 
   console.log('Response of the agent:',response)
 
-  const raw = response.output[0].context;
+  const raw = response.output[0].content;
 
   try {
     //regexr website to verify.
