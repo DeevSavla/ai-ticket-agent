@@ -12,6 +12,7 @@ export const createTicket = async (req, res) => {
     const newTicket = await ticketModel.create({
       title,
       description,
+      createdBy: req.user._id.toString(),
     });
     await inngest.send({
       name: "ticket/created",
@@ -39,6 +40,13 @@ export const getTickets = async (req, res) => {
     if (user.role !== "user") {
       tickets = ticketModel
         .find({})
+        //this will find the user to which the ticket is assigned & provides both email and _id of that user shown below
+        /*{
+          "assignedTo": {
+            "_id": "671fb3c49...",
+            "email": "gmail.com"
+          },
+        } */
         .populate("assignedTo", ["email", "_id"])
         .sort({ createdAt: -1 });
     } else {
