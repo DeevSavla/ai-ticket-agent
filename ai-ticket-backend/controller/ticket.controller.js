@@ -76,8 +76,8 @@ export const getTicket = async (req, res) => {
           createdBy: user._id,
           _id: req.params.id,
         })
-        .select("title description status createdAt");
     }
+    console.log(ticket);
     if (!ticket) {
       return res.status(404).json({ message: "Ticket not found" });
     }
