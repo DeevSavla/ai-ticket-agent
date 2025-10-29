@@ -18,7 +18,7 @@ const ticketSchema = new mongoose.Schema({
     assignedTo:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'user',
-        default:NULL
+        default:null
     },
     priority:{
         type:String,
