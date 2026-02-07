@@ -3,7 +3,7 @@ import { createAgent, gemini } from "@inngest/agent-kit";
 const analyzeTicket = async (ticket) => {
   const supportAgent = createAgent({
     model: gemini({
-      model: "gemini-2.0-flash",
+      model: "gemini-3-flash-preview",
       apiKey: process.env.GEMINI_API_KEY,
     }),
     name: "AI Ticket Assistant",
@@ -53,6 +53,8 @@ const analyzeTicket = async (ticket) => {
   console.log('Response of the agent:',response)
 
   const raw = response.output[0].content;
+
+  console.log('This is my raw output:', raw)
 
   try {
     //regexr website to verify.
